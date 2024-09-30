@@ -18,7 +18,7 @@ POICHE' L'ORARIO E' STATO AGGIORNATO NELLA NOTTE FRA VENERDì E SABATO, CHI NON 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/*aggiunta di un secondo struct e di un altro file per i voti degli studenti*/
 typedef struct{
     char nome[50];
     char cognome[50];
