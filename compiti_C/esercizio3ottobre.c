@@ -7,7 +7,7 @@ typedef struct {
     char cognome[50];
     int telefono;
     int matricola;
-    char sesso[2];
+    char sesso;  // Singolo carattere per il sesso ('m' o 'f')
 } persona;
 
 void visualizza_persona(persona p) {
@@ -15,7 +15,7 @@ void visualizza_persona(persona p) {
     printf("Cognome: %s\n", p.cognome);
     printf("Telefono: %d\n", p.telefono);
     printf("Matricola: %d\n", p.matricola);
-    printf("Sesso: %s\n", p.sesso);
+    printf("Sesso: %c\n", p.sesso);
 }
 
 int main() {
@@ -71,9 +71,9 @@ int main() {
                 scanf("%d", &p.telefono);
 
                 printf("Inserisci sesso (m/f): ");
-                scanf("%s", p.sesso);
+                scanf(" %c", &p.sesso);  // Nota lo spazio prima di %c per ignorare caratteri di nuova riga
 
-                if (strcmp(p.sesso, "m") == 0) {
+                if (p.sesso == 'm') {
                     fp = fopen("maschi.bin", "ab");
                     if (fp == NULL) {
                         printf("Errore nell'apertura del file maschi.bin\n");
@@ -81,7 +81,7 @@ int main() {
                     }
                     fwrite(&p, sizeof(persona), 1, fp);
                     fclose(fp);
-                } else if (strcmp(p.sesso, "f") == 0) {
+                } else if (p.sesso == 'f') {
                     f = fopen("femmine.bin", "ab");
                     if (f == NULL) {
                         printf("Errore nell'apertura del file femmine.bin\n");
