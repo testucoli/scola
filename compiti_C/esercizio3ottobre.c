@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_PERSONE 1000
+
 typedef struct {
     char nome[50];
     char cognome[50];
@@ -20,9 +22,10 @@ void visualizza_persona(persona p) {
 
 int main() {
     int scelta;
-    persona p;
+    persona p[MAX_PERSONE];
     FILE *fp;
     FILE *f;
+    int n=0;
 
     while(1) {
         printf("1: visualizza dipendenti maschi, 2: visualizza dipendenti femmine, 3: aggiungi persone, 0: esci\n");
@@ -40,7 +43,7 @@ int main() {
                     break;
                 }
                 while (fread(&p, sizeof(persona), 1, fp)) {
-                    visualizza_persona(p);
+                    visualizza_persona(p[n]);
                 }
                 fclose(fp);
                 break;
@@ -52,28 +55,56 @@ int main() {
                     break;
                 }
                 while (fread(&p, sizeof(persona), 1, f)) {
-                    visualizza_persona(p);
+                    visualizza_persona(p[n]);
                 }
                 fclose(f);
                 break;
 
             case 3:
+            if(n>=MAX_PERSONE){
+             printf("raggiunto il limite massimo di persone\n");
+             break;
+            }
                 printf("Inserisci nome: ");
-                scanf("%s", p.nome);
+                scanf("%s", p[n].nome);
 
                 printf("Inserisci cognome: ");
-                scanf("%s", p.cognome);
+                scanf("%s", p[n].cognome);
 
                 printf("Inserisci matricola: ");
-                scanf("%d", &p.matricola);
+                scanf("%d", &p[n].matricola);
 
                 printf("Inserisci telefono: ");
-                scanf("%d", &p.telefono);
+                scanf("%d", &p[n].telefono);
 
                 printf("Inserisci sesso (m/f): ");
-                scanf(" %c", &p.sesso);  
+                scanf(" %c", &p[n].sesso);  
 
-                if (p.sesso == 'm') {
+                if(p[n].sesso!='m' && p[n].sesso!='f'){
+                    printf("sesso non valido\n");
+
+                }else{
+                    n++;
+                }
+                f = fopen("femmine.bin", "ab");
+                fp = fopen("maschi.bin", "ab");
+                if (fp == NULL || f==  NULL) {
+                    printf("File non trovati\n");
+                    return 0;
+                }
+                for(int i=0; i<n;i++){
+                    if(p[i].sesso=='m'){
+                        fwrite(&p[i],sizeof(persona),1,fp);
+                        printf("aggiunto al file dei maschi\n");
+                    }else if(p[i].sesso=='f'){
+                        fwrite(&p[i],sizeof(persona),1,f);
+                        printf("aggiunto al file delle femmine\n");
+                    }
+                }
+                fclose(fp);
+                fclose(f);
+                 break;
+                /*if (p.sesso == 'm') {
                     fp = fopen("maschi.bin", "ab");
                     if (fp == NULL) {
                         printf("Errore nell'apertura del file maschi.bin\n");
@@ -91,8 +122,8 @@ int main() {
                     fclose(f);
                 } else {
                     printf("Sesso non valido\n");
-                }
-                break;
+                }*/
+               
 
             default:
                 printf("Opzione non valida\n");
