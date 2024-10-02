@@ -7,7 +7,7 @@ typedef struct {
     char cognome[50];
     int telefono;
     int matricola;
-    char sesso;  // Singolo carattere per il sesso ('m' o 'f')
+    char sesso;
 } persona;
 
 void visualizza_persona(persona p) {
@@ -71,7 +71,7 @@ int main() {
                 scanf("%d", &p.telefono);
 
                 printf("Inserisci sesso (m/f): ");
-                scanf(" %c", &p.sesso);  // Nota lo spazio prima di %c per ignorare caratteri di nuova riga
+                scanf(" %c", &p.sesso);  
 
                 if (p.sesso == 'm') {
                     fp = fopen("maschi.bin", "ab");
