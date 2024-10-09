@@ -46,15 +46,15 @@ int main(int argc, char** argv) {
         }
     } while (scelta != 0);
 
-    return EXIT_SUCCESS;
+    return 0;
 }
 
 void insertstudente() {
     studente s;
     printf("\nInserisci il nome: ");
-    scanf("%19s", s.nome);  
+    scanf("%s", s.nome);  
     printf("Inserisci il cognome: ");
-    scanf("%19s", s.cognome);  
+    scanf("%s", s.cognome);  
     printf("Inserisci la matricola: ");
     scanf("%d", &s.matricola);
 
@@ -77,11 +77,11 @@ void insertvoto() {
     char cognome[20];
     
     printf("\nInserisci il nome: ");
-    scanf("%19s", nome);  // Safe input
+    scanf("%s", nome);  
     printf("Inserisci il cognome: ");
-    scanf("%19s", cognome);  // Safe input
+    scanf("%s", cognome); 
     printf("Inserisci la disciplina: ");
-    scanf("%19s", v.disciplina);  // Safe input
+    scanf("%s", v.disciplina); 
     printf("Inserisci la valutazione: ");
     scanf("%d", &v.val);
 
