@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 900px;
+  background: radial-gradient(#1b2735 0%, #090a0f 100%);
+  color: black;
+  justify-content: center;
+  align-items: center;
+}
+
+.plyr p {
+  margin-top: 20px;
+}
+
+.plyr {
+
+  color: black;
+  margin: auto;
+  background: linear-gradient(to right, #547caa 0%, #47968e 100%);
+  border-radius: 20px;
+  cursor: pointer;
+  color:white;
+  margin-left: 15px;
+  font-weight: 600;
+  font-size: 18px;
+
+
+}
+
+.buttons {
+  display: inline-block;
+  justify-content: center;
+  margin-top: 20px;
+  margin-top: 200px;
+
+}
+
+#players {
+  margin-bottom: 40px;
+  color: black;
+  background: linear-gradient(to right, #547caa 0%, #47968e 100%);
+  border-radius: 20px;
+  width: 240px;
+  height: 50px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border: 1px solid white;
+  appearance: none;  
+}
+
+#players option {
+  background-color: #1b2735;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.plyr img {
+  width: 150px;
+  margin-bottom: -6px;
+  margin-top: 10px;
+
+}
+
+#carriera {
+
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+
+}
+
+.tit {
+  background: linear-gradient(50deg, #895cf2 0%, #ffabf4 50%, #895cf2 100%);
+}
+
+hr {
+  width: 500px;
+  margin-top: 50px;
+  margin-bottom:25px;
+
+}
+
+#players:hover {
+  cursor: pointer;
+}
+
+
+
