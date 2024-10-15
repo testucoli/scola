@@ -34,10 +34,6 @@ while(1){
 
     printf("inserisci il cognome del dipendente: ");
     scanf("%s",persone.cognome);
-
-    if(strcmp(persone.cognome,stop)==0){
-        break;
-    }
     fprintf(fp,"%s %s\n",persone.nome,persone.cognome);
 }
 fclose(fp);
