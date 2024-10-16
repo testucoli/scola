@@ -35,6 +35,12 @@ typedef struct{
     int dd,mm,yy;
 }atleta;
 
+typedef struct{
+    int pettorina;
+    float tempo;
+    char tipoprova;
+}risultato;
+
 
 void inserimento();
 void risultati();
@@ -59,6 +65,10 @@ while(1){
 
         case 2:
         risultati();
+        break;
+
+        case 3:
+
         break;
     }
 }
@@ -91,19 +101,46 @@ void inserimento(){
 
 void risultati(){
     atleta atleti;
+    risultato risultati;
+    FILE *fp;
     FILE *f;
     char nome[MAX_LUNGHEZZA];
     char cognome[MAX_LUNGHEZZA];
-    char prova={'N','C','B'};
+    int trovato=0;
 
     printf("inserisci il nome da cercare\n");
     scanf("%s",nome);
     printf("inserisci cognome\n");
     scanf("%s",cognome);
+    printf("inserisci la pettorina \n");
+    scanf("%d",&risultati.pettorina);
+    printf("inserisci il tempo in secondi \n");
+    scanf("%f", &risultati.tempo);
+    printf("inserisci il tipo di prova \n");
+    scanf("%c", &risultati.tipoprova);
+    fp=fopen("atleti.bin","rb");
+    while(fread(&atleti,sizeof(atleta),1,fp)){
     if(strcmp(atleti.nome,nome) == 0 && strcmp(atleti.cognome,cognome) == 0){
-        printf("funzione\n");
-        printf("inserisci il tempo dell'atleta\n");
-        scanf
+        trovato=1;
+    }
 
     }
+    fclose(fp);
+    if(trovato==1){
+        f=fopen("risultati.bin","ab");
+        if(f==NULL){
+            printf("impossibile aprire il file \n");
+            return;
+        }
+        risultati.pettorina == atleti.pettorina;
+        fwrite(&risultati,sizeof(risultato),1,f);
+        fclose(f);
+
+         }
+
 }
+
+
+
+
+
