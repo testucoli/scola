@@ -9,13 +9,13 @@ typedef struct{
     char nome[MAX_LUNGHEZZA];
     char cognome[MAX_LUNGHEZZA];
     int pettorina;
-    int dd,mm,yy; // data di nascita
+    int dd,mm,yy;
 } atleta;
 
 typedef struct {
     int pettorina;
-    char tipo_prova; // 'N', 'C', 'B'
-    int tempo; // tempo in secondi
+    char tipo_prova; 
+    int tempo; //in secondi
 } risultato;
 
 void inserimento();
@@ -126,7 +126,7 @@ void tempo_totale_atleta() {
     printf("Cognome atleta: ");
     scanf("%s", cognome);
 
-    // Cerca l'atleta per nome e cognome
+    
     fp = fopen("atleti.bin", "rb");
     if (fp == NULL) {
         printf("Errore nell'aprire il file\n");
@@ -141,7 +141,7 @@ void tempo_totale_atleta() {
     }
     fclose(fp);
 
-    // Ora cerca i tempi relativi al numero di pettorina
+    
     fp = fopen("risultati.bin", "rb");
     if (fp == NULL) {
         printf("Errore nell'aprire il file dei risultati\n");
@@ -177,7 +177,7 @@ void ricerca_tempi_minori() {
 
     while (fread(&res, sizeof(risultato), 1, fp)) {
         if (res.tipo_prova == tipo_prova && res.tempo < tempo_rif) {
-            // Cerca l'atleta in base alla pettorina
+            
             atleta atleti;
             FILE *fa = fopen("atleti.bin", "rb");
             if (fa == NULL) {
