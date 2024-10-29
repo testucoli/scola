@@ -1,0 +1,55 @@
+html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  body {
+    cursor: default;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  table {
+    text-align: center;
+    border: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    width: 50px;
+  }
+  
+  tr,
+  td {
+    border: 1px solid;
+    width: 80px;
+  }
+  
+  input {
+    border-radius: 8px;
+    border: 1px;
+    border-style: solid;
+    width: 100px;
+    cursor: text;
+  }
+  
+  select {
+    border-radius: 8px;
+    border: 1px;
+    border-style: solid;
+    width: 165px;
+    cursor: pointer;
+  }
+  
+  #tAtt {
+    cursor: pointer;
+  }
+  
+  button {
+    border: 1px;
+    border-style: solid;
+    border-radius: 6px;
+  }
+  
+  #reset:hover {
+    cursor: pointer;
+  }

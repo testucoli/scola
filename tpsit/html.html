@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Priorità</title>
+  <link href="style.css" rel="stylesheet" />
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <center>
+    <h1>Priorità</h1>
+    <table border="1px solid">
+      <tr>
+        <td>Processo</td>
+        <td>Tempo di arrivo</td>
+        <td>Tempo di esecuzione</td>
+        <td>Priorità</td>
+        <td> Attesa </td>
+        <td>Avanzamento</td>
+      </tr>
+      <tr>
+        <td>P1</td>
+        <td><input id="ta1" type="number" placeholder="..."></td>
+        <td><input id="te1" type="number" placeholder="..."></td>
+        <td><input id="p1" type="number" placeholder="..."></td>
+        <td id="tAtt1"></td>
+        <td><progress id="progress1" value="0" max="100"></progress></td>
+      </tr>
+      <tr>
+        <td>P2</td>
+        <td><input id="ta2" type="number" placeholder="..."></td>
+        <td><input id="te2" type="number" placeholder="..."></td>
+        <td><input id="p2" type="number" placeholder="..."></td>
+        <td id="tAtt2"></td>
+        <td><progress id="progress2" value="0" max="100"></progress></td>
+      </tr>
+      <tr>
+        <td>P3</td>
+        <td><input id="ta3" type="number" placeholder="..."></td>
+        <td><input id="te3" type="number" placeholder="..."></td>
+        <td><input id="p3" type="number" placeholder="..."></td>
+        <td id="tAtt3"></td>
+        <td><progress id="progress3" value="0" max="100"></progress></td>
+      </tr>
+      <tr>
+        <td>P4</td>
+        <td><input id="ta4" type="number" placeholder="..."></td>
+        <td><input id="te4" type="number" placeholder="..."></td>
+        <td><input id="p4" type="number" placeholder="..."></td>
+        <td id="tAtt4"></td>
+        <td><progress id="progress4" value="0" max="100"></progress></td>
+      </tr>
+    </table>
+
+    <p>
+      <button onclick="executeScheduling()">Calcola Priorità</button>
+      <button onclick="advanceProgress()">Avanza</button> <!-- Pulsante per avanzare le barre -->
+    </p>
+    <p>
+      Tempo di attesa medio: <input id="tAtt" readonly>
+    </p>
+    <p>
+      Tempo di turnaround medio: <input id="tTurn" readonly>
+    </p>
+    <p>
+      <button id="reset" onclick="reset()">Reset</button>
+    </p>
+  </center>
+
+  <script>
+    function prioScheduling(processes) {
+      processes.sort((a, b) => a.prio - b.prio || a.arrTime - b.arrTime);
+      let cTime = 0;
+      let waitTime = 0;
+
+      for (let i = 0; i < processes.length; i++) {
+        const process = processes[i];
+        if (cTime < process.arrTime) {
+          cTime = process.arrTime;
+        }
+        waitTime += cTime - process.arrTime;
+        cTime += process.exTime;
+        process.waitTime = waitTime;
+      }
+
+      return processes;
+    }
+
+    function executeScheduling() {
+      const processes = [
+        {
+          name: "P1",
+          arrTime: parseInt(document.getElementById('ta1').value) || 0,
+          exTime: parseInt(document.getElementById('te1').value) || 0,
+          prio: parseInt(document.getElementById('p1').value) || 0,
+        },
+        {
+          name: "P2",
+          arrTime: parseInt(document.getElementById('ta2').value) || 0,
+          exTime: parseInt(document.getElementById('te2').value) || 0,
+          prio: parseInt(document.getElementById('p2').value) || 0,
+        },
+        {
+          name: "P3",
+          arrTime: parseInt(document.getElementById('ta3').value) || 0,
+          exTime: parseInt(document.getElementById('te3').value) || 0,
+          prio: parseInt(document.getElementById('p3').value) || 0,
+        },
+        {
+          name: "P4",
+          arrTime: parseInt(document.getElementById('ta4').value) || 0,
+          exTime: parseInt(document.getElementById('te4').value) || 0,
+          prio: parseInt(document.getElementById('p4').value) || 0,
+        }
+      ];
+
+      let updatedProcesses = prioScheduling(processes);
+
+      let tAttM = 0;
+      let tTurnM = 0;
+
+      updatedProcesses.forEach(process => {
+        tAttM += process.waitTime;
+        tTurnM += process.waitTime + process.exTime;
+      });
+
+      const AttMedia = tAttM / updatedProcesses.length;
+      const TurnMedio = tTurnM / updatedProcesses.length;
+
+      document.getElementById('tAtt').value = AttMedia;
+      document.getElementById('tTurn').value = TurnMedio;
+
+      for (let i = 1; i <= 4; i++) {
+        const process = updatedProcesses[i - 1];
+        document.getElementById(`tAtt${i}`).innerText = process.waitTime;
+      }
+    }
+
+    function advanceProgress() {
+      for (let i = 1; i <= 4; i++) {
+        const progress = document.getElementById(`progress${i}`);
+        const execTime = parseInt(document.getElementById(`te${i}`).value) || 1; // 1 per evitare divisione per 0
+
+        if (progress.value < 100) {
+          progress.value += 100 / execTime;
+        }
+      }
+    }
+
+    function reset() {
+      document.getElementById('ta1').value = "";
+      document.getElementById('te1').value = "";
+      document.getElementById('p1').value = "";
+      document.getElementById('ta2').value = "";
+      document.getElementById('te2').value = "";
+      document.getElementById('p2').value = "";
+      document.getElementById('ta3').value = "";
+      document.getElementById('te3').value = "";
+      document.getElementById('p3').value = "";
+      document.getElementById('ta4').value = "";
+      document.getElementById('te4').value = "";
+      document.getElementById('p4').value = "";
+      document.getElementById('tAtt').value = "";
+      document.getElementById('tTurn').value = "";
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`tAtt${i}`).innerText = "";
+        document.getElementById(`progress${i}`).value = 0;
+      }
+    }
+
+  </script>
+</body>
+
+</html>
