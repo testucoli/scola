@@ -1,4 +1,4 @@
 fn main () {
-    let negro = "#000000";
+    let nero = "#000000";
     println!("", );
 }
