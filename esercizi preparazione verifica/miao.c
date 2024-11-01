@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int main(){
-    char ch = 'A';
+int main() {
+    printf("* \n");
+	return 0;
 
-    printf("%c", ch + 1);
-    return 0;
 }
+
